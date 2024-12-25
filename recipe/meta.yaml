@@ -7,20 +7,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/simple_di-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/simple_di-{{ version }}.tar.gz
   sha256: 192b999dee4cd4fb11a5d861165caad02d8f0617c0f806fc5b09f905f1a03ca0
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     ## Converting the recipe to noarch: only build for python>=3.7
     # - dataclasses  # [py<37]
     # - types-dataclasses  # [py<37]
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/bentoml/simple_di
